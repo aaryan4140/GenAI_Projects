@@ -1,0 +1,5 @@
+Some of the libraries/packages or modules that i use to create this reposatory are:-
+openai
+Langchain
+os
+tiktoken

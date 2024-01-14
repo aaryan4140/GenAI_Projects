@@ -11,3 +11,6 @@ Sentiment analysis: Determining the sentiment (positive, negative, neutral) of a
 Recommendation systems: Suggesting relevant items based on text descriptions.
 And many more.
 Example:
+
+#4:- Langauge translator:- translate anything into any langauge
+#5:- pdfquestion answer using langchain

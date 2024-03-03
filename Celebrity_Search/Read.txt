@@ -1,1 +1,76 @@
+## Integration with OpenAI API for Celebrity Information Search
 
+The integration with OpenAI API enhances the "Celebrity info search" Streamlit app, allowing users to retrieve information about celebrities using natural language queries. This integration utilizes the LangChain library and OpenAI's language model for conversational AI tasks.
+
+### How It Works
+
+1. OpenAI API Integration:
+   - The app integrates with the OpenAI API using the `langchain.llms.OpenAI` module.
+   - The OpenAI API key is stored securely in a `constants.py` file and accessed using `os` module.
+   
+2. Streamlit Framework:
+   - Users interact with the app through a Streamlit interface, providing a celebrity name for information retrieval.
+   - The `streamlit` framework handles the user input and displays the retrieved information.
+
+3. LangChain Memory Setup:
+   - Memory buffers are set up using `langchain.memory.ConversationBufferMemory` to store conversation history and context.
+   - Three memory buffers are used:
+     - `person_memory` to store the conversation history about the celebrity's name.
+     - `dob_memory` to store the conversation history about the celebrity's date of birth.
+     - `desc_memory` to store the conversation history about major events around the celebrity's birthdate.
+
+4. Prompt Templating:
+   - The `PromptTemplate` module from `langchain` is used to create input prompts for the OpenAI model.
+   - Three prompt templates are defined:
+     - `first_input_prompt`: Asks for information about the celebrity in 30 words.
+     - `second_input_prompt`: Asks for the celebrity's date of birth.
+     - `third_input_prompt`: Asks for five major events around the celebrity's birthdate.
+
+5. OpenAI LLM (Large Language Model):
+   - An OpenAI LLM instance is created with a temperature of 0.8 for creativity in responses.
+   - Three `LLMChain` instances are initialized for each prompt, connecting to the OpenAI model:
+     - `chain`: Retrieves information about the celebrity based on their name.
+     - `chain2`: Retrieves the celebrity's date of birth.
+     - `chain3`: Retrieves major events around the celebrity's birthdate.
+
+6. Sequential Chain:
+   - A `SequentialChain` is created to chain the three `LLMChain` instances together.
+   - The `SequentialChain` takes the celebrity's name as input and provides the person's name, date of birth, and major event descriptions as output.
+
+### Usage
+
+1. Getting Started:
+   - Ensure the required Python packages (`streamlit`, `langchain`, `openai`) are installed.
+   - Store your OpenAI API key securely in a `constants.py` file as `OPENAI_API_KEY`.
+
+2. Running the App:
+   - Execute the script in a Python environment.
+   - Access the Streamlit web interface on the specified local server.
+   - Enter a celebrity's name in the text input field and click "Submit" to retrieve information.
+
+### Example
+
+- User Input: "Michael Jackson"
+- Generated Output:
+  ```
+  {
+    'person': 'Michael Jackson was a singer, songwriter, and dancer known as the "King of Pop".',
+    'dob': 'Michael Jackson was born on August 29, 1958.',
+    'description': 'Five major events around Michael Jackson\'s birthdate:
+     1. Michael Jackson's album "Thriller" released in 1982.
+     2. He won 8 Grammy Awards in 1984.
+     3. Michael Jackson's Pepsi commercial accident in 1984.
+     4. Marriage to Lisa Marie Presley in 1994.
+     5. He died on June 25, 2009, at the age of 50.'
+  }
+  ```
+  
+### App Interface
+
+- Title: "Celebrity info search"
+- Input: Text input field for user to enter a celebrity's name.
+- Output:
+  - Information about the celebrity (name, date of birth, major events).
+  - Expander sections to display conversation history (`person_name` and `major_event`) for transparency.
+
+The integrated OpenAI API enhances the app's functionality, providing users with detailed information about celebrities based on natural language queries. Users can explore and learn about various celebrities with ease using this interactive and informative app.
